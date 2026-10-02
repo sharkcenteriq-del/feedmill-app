@@ -1,0 +1,44 @@
+{
+  "name": "feedmill-stock",
+  "productName": "FeedMill Stock",
+  "version": "1.0.0",
+  "description": "مخزن معمل العلف - فكرة و تصميم وسام مالديني",
+  "author": "Wissam Maldini <wissam.maldini@gmail.com>",
+  "main": "main.js",
+  "scripts": {
+    "prepare-www": "node prepare.js",
+    "start": "npm run prepare-www && electron .",
+    "dist": "npm run prepare-www && electron-builder --win nsis --publish never"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/filesystem": "^6.0.1",
+    "@capacitor/share": "^6.0.2",
+    "@fontsource/cairo": "^5.0.0",
+    "@fontsource/el-messiri": "^5.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.maldini.feedmill",
+    "productName": "FeedMill Stock",
+    "copyright": "فكرة و تصميم وسام مالديني",
+    "files": ["main.js", "preload.js", "icon.png", "www/**/*"],
+    "win": { "target": "nsis", "icon": "icon.png" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "shortcutName": "مخزن معمل العلف",
+      "createDesktopShortcut": true,
+      "language": "1025",
+      "artifactName": "FeedMill-Setup-${version}.exe"
+    }
+  }
+}
