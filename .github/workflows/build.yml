@@ -22,8 +22,14 @@ jobs:
       - run: npm install
       - run: npm run prepare-www
       - run: npx cap add android
-      - run: mkdir -p assets && cp icon.png assets/icon.png && convert -size 2732x2732 xc:'#1F3B2E' assets/splash.png
-      - run: npx capacitor-assets generate --android --iconBackgroundColor '#1F3B2E' --iconBackgroundColorDark '#1F3B2E' --splashBackgroundColor '#1F3B2E' --splashBackgroundColorDark '#1F3B2E'
+      - name: App icon
+        run: |
+          R=android/app/src/main/res
+          rm -rf $R/mipmap-anydpi-v26
+          for d in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            cp icon.png $R/mipmap-$d/ic_launcher.png
+            cp icon.png $R/mipmap-$d/ic_launcher_round.png
+          done
       - run: npx cap sync android
       - run: chmod +x gradlew && ./gradlew assembleDebug
         working-directory: android
